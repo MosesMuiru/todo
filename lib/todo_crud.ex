@@ -2,7 +2,11 @@ defmodule TodoList.Crud do
 
   defstruct auto_id: 1, entries: %{}
   # creats new instance of the module
-  def new(), do: %__MODULE__{}
+  # def new(), do: %__MODULE__{}
+
+  def new(entries\\[]) do
+    Enum.reduce(entries, %TodoList.Crud{}, fn entry , todo_list_acc -> add_entry(todo_list_acc, entry) end)
+  end
 
   def add_entry(todo_list, entry) do
       entry = Map.put(entry, :id, todo_list.auto_id)
